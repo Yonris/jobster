@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "772559983254",
+    "firebase_url": "https://jobster-c0230-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "jobster-c0230",
+    "storage_bucket": "jobster-c0230.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772559983254:android:d5b978abc0a108575468b7",
+        "android_client_info": {
+          "package_name": "com.example.jobster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772559983254-hcvs7tu4a3lmlpoqb5p24a70fjub39m9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jobster",
+            "certificate_hash": "450908cec67513bedb99bd66431958758a1dc7a0"
+          }
+        },
+        {
+          "client_id": "772559983254-o4bv3oaikjqteqc1r1d315jgp8sp35lp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVAuzhqWOCEvUMI9CIdrv5HyrQ-saBw0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772559983254-o4bv3oaikjqteqc1r1d315jgp8sp35lp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "772559983254-v68uakr7ccf4v6nektue6khdj4l6hpt8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jobster"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
