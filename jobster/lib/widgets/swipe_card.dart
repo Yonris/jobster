@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobster/main.dart';
 import '../models/job_posting.dart';
 
 class SwipeCard extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart'; // Import the seeker form page
-import 'package:jobster/pages/auth/recruiter_registration/recruiter_form_page.dart';
+import 'package:jobster/pages/auth/recruiter_registration/recruiter_form_step1.dart';
 import 'package:jobster/pages/auth/seeker_registration/seeker_form_step1.dart';
 
 class RoleSelectorPage extends StatefulWidget {
@@ -13,6 +13,7 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
   String? _selectedRole;
 
   void _selectRole(String role) {
+    if (!mounted) return;
     setState(() {
       _selectedRole = role;
     });
@@ -27,7 +28,7 @@ class _RoleSelectorPageState extends State<RoleSelectorPage> {
     } else if (_selectedRole == 'recruiter') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const RecruiterFormPage()),
+        MaterialPageRoute(builder: (_) => const RecruiterFormStep1()),
       );
     }
   }

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'config/firebase_options.dart';
-import 'app.dart';
-
-// app.dart
-import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart'; // Add this import
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jobster/pages/auth/role_selector_page.dart';
+import 'package:jobster/utils/constants.dart';
+import 'package:jobster/widgets/home_navigation.dart';
 import 'pages/auth/login_page.dart';
-import 'widgets/bottom_menu.dart';
+import 'services/user_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
   runApp(const JobTinderApp());
 }
 
@@ -25,10 +24,53 @@ class JobTinderApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          // Firebase still checking auth state
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+
+          // User not logged in
+          if (!snapshot.hasData) return const LoginPage();
+
+          // User is logged in – now get their type
+          return FutureBuilder<String>(
+            future: UserService().getUserType(snapshot.data!.uid),
+            builder: (context, typeSnapshot) {
+              if (!typeSnapshot.hasData) {
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+              }
+
+              final userType = typeSnapshot.data!;
+              if (userType == UserType.seeker) {
+                return const UserHomeNavigation(
+                  userData: {"role": UserType.seeker},
+                );
+              }
+              if (userType == UserType.recruiter) {
+                return const UserHomeNavigation(
+                  userData: {"role": UserType.recruiter},
+                );
+              }
+              if (userType == UserType.newUser) {
+                return const RoleSelectorPage();
+              }
+              throw Exception('Unknown user type: $userType');
+            },
+          );
+        },
+      ),
     );
   }
 }
+
+// ... rest of your models below unchanged
 
 // models/user_profile.dart
 class UserProfile {
@@ -78,6 +120,7 @@ class JobPosting {
   final String description;
   final List<String> requirements;
   final String location;
+  double? matchScore;
 
   JobPosting({
     required this.id,
@@ -86,6 +129,7 @@ class JobPosting {
     required this.description,
     required this.requirements,
     required this.location,
+    required this.matchScore,
   });
 
   factory JobPosting.fromMap(String id, Map<String, dynamic> data) {
@@ -96,6 +140,9 @@ class JobPosting {
       description: data['description'] ?? '',
       requirements: List<String>.from(data['requirements'] ?? []),
       location: data['location'] ?? '',
+      matchScore: data['matchScore'] != null
+          ? (data['matchScore'] as num).toDouble()
+          : null,
     );
   }
 

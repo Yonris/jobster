@@ -6,16 +6,16 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 
-import 'package:jobster/pages/auth/seeker_registration/seeker_form_step2.dart';
+import 'package:jobster/pages/auth/recruiter_registration/recruiter_form_step2.dart';
 
-class SeekerFormStep1 extends StatefulWidget {
-  const SeekerFormStep1({super.key});
+class RecruiterFormStep1 extends StatefulWidget {
+  const RecruiterFormStep1({super.key});
 
   @override
-  State<SeekerFormStep1> createState() => _SeekerFormStep1State();
+  State<RecruiterFormStep1> createState() => _RecruiterFormStep1State();
 }
 
-class _SeekerFormStep1State extends State<SeekerFormStep1> {
+class _RecruiterFormStep1State extends State<RecruiterFormStep1> {
   final _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _data = {};
   File? _selectedImage;
@@ -139,7 +139,7 @@ class _SeekerFormStep1State extends State<SeekerFormStep1> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => SeekerFormStep2(data: _data),
+                              builder: (_) => RecruiterFormStep2(data: _data),
                             ),
                           );
                         }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jobster/pages/auth/login_page.dart';
-import 'package:jobster/pages/job_seeker/seeker_home_page.dart';
-import 'package:jobster/pages/recruiter/recruiter_home_page.dart';
-import 'package:jobster/widgets/bottom_menu.dart';
+import 'package:jobster/widgets/home_navigation.dart';
 import 'services/user_service.dart';
 
 class JobTinderApp extends StatelessWidget {
@@ -26,8 +24,8 @@ class JobTinderApp extends StatelessWidget {
             builder: (context, typeSnapshot) {
               if (!typeSnapshot.hasData) return const CircularProgressIndicator();
               return typeSnapshot.data == 'seeker'
-                  ? const HomeNavigation()
-                  : const RecruiterHomePage();
+                  ? const UserHomeNavigation(userData: {'role': 'seeker'})
+                  : const UserHomeNavigation(userData: {'role': 'recruiter'});
             },
           );
         },

@@ -18,8 +18,17 @@ class SeekerProfile {
       id: id,
       firstName: data['firstName'] ?? '',
       lastName: data['lastName'] ?? '',
-      photoUrl: data['photo'],
+      photoUrl: data['photoUrl'],
       bio: data['bio'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'photoUrl': photoUrl,
+      'bio': bio,
+    };
   }
 }
